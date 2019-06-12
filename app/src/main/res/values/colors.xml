@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1B2430</color>
+    <color name="colorPrimaryDark">#10161F</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!-- Begin Button  Colors -->
+    <color name="colorButtonLightBlue">#0277bd</color>
+    <color name="colorButtonBlack">#000000</color>
+    <color name="colorButtonWhite">#ffffff</color>
+    <color name="colorButtonPink">#f64c73</color>
+    <color name="colorButtonBlue">#3395ff</color>
+    <color name="colorButtonFacebookBlue">#5464c6</color>
+    <color name="colorButtonRed">#f1020a</color>
+    <color name="colorButtonGreen">#08401b</color>
+    <color name="colorButtonLightGreen">#16830c</color>
+    <color name="colorButtonPurple">#c873f4</color>
+    <color name="colorButtonGrey">#a0a3a7</color>
+    <!-- End Button  Colors -->
+
+    <!-- Begin Text Color -->
+    <color name="text_black">#000000</color>
+    <color name="text_white">#ffffff</color>
+    <color name="text_pink">#f64c73</color>
+    <color name="text_blue">#3395ff</color>
+    <color name="text_facebook_blue">#5464c6</color>
+    <color name="text_red">#f1020a</color>
+    <color name="text_green">#08401b</color>
+    <color name="text_light_green">#16830c</color>
+    <color name="text_purple">#c873f4</color>
+    <color name="text_grey">#4c4c4c</color>
+    <color name="text_light_grey">#8A8A8A</color>
+    <!-- End Text Color -->
+
+    <!-- Begin Background Color -->
+    <color name="background_black">#000000</color>
+    <color name="background_white">#ffffff</color>
+    <color name="background_pink">#f64c73</color>
+    <color name="background_blue">#3395ff</color>
+    <color name="background_facebook_blue">#5464c6</color>
+    <color name="background_red">#f1020a</color>
+    <color name="background_green">#08401b</color>
+    <color name="background_light_green">#16830c</color>
+    <color name="background_purple">#c873f4</color>
+    <color name="background_grey">#e7e9e9</color>
+    <color name="background_grey_dark">#d6d3d3</color>
+    <!-- End Background Color -->
+
+    <!-- Begin Line Color -->
+    <color name="line_black">#000000</color>
+    <color name="line_white">#ffffff</color>
+    <color name="line_pink">#f64c73</color>
+    <color name="line_blue">#3395ff</color>
+    <color name="line_facebook_blue">#5464c6</color>
+    <color name="line_red">#f1020a</color>
+    <color name="line_green">#08401b</color>
+    <color name="line_light_green">#16830c</color>
+    <color name="line_purple">#c873f4</color>
+    <color name="line_grey">#a9a9a9</color>
+    <!-- End Line Color -->
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/scan"
+        android:layout_width="@dimen/width_one_hundred_fifty"
+        android:layout_height="wrap_content"
+        android:onClick="connect"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginLeft="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:background="@drawable/button_shaded_radius_twenty"
+        android:text="@string/connect"
+        android:textSize="@dimen/text_fifteen"
+        android:textColor="@color/text_white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/discoverable"
+        android:layout_width="@dimen/width_one_hundred_fifty"
+        android:layout_height="wrap_content"
+        android:onClick="discoverable"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:layout_marginRight="@dimen/margin_twenty"
+        android:background="@drawable/button_shaded_radius_twenty"
+        android:text="@string/discoverable"
+        android:textSize="@dimen/text_fifteen"
+        android:textColor="@color/text_white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_text_out"
+        android:layout_width="@dimen/width_zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginLeft="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:layout_marginRight="@dimen/margin_twenty"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan"/>
+
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="@dimen/width_zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginLeft="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:layout_marginRight="@dimen/margin_twenty"
+        android:background="@drawable/button_shaded_radius_twenty"
+        android:text="@string/send"
+        android:textSize="@dimen/text_fifteen"
+        android:textColor="@color/text_white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_out"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_zero"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_send" />
+
+</android.support.constraint.ConstraintLayout>
