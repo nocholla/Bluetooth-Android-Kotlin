@@ -41,11 +41,9 @@ class DeviceListActivity : Activity() {
         // Set result CANCELED incase the user backs out
         setResult(RESULT_CANCELED)
 
-        // Initialize the button to perform device discovery
-        val scanButton = findViewById<Button>(R.id.button_scan)
-        scanButton.setOnClickListener { v ->
+        button_scan.setOnClickListener {
             doDiscovery()
-            v.visibility = View.GONE
+            button_scan.visibility = View.GONE
         }
 
         // Initialize array adapters. One for already paired devices and
