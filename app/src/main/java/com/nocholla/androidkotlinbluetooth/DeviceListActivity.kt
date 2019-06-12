@@ -21,55 +21,15 @@ import kotlinx.android.synthetic.main.device_list.*
  */
 class DeviceListActivity : Activity() {
 
+    companion object {
+        // Return Intent extra
+        var EXTRA_DEVICE_ADDRESS = "device_address"
+    }
+
     // Member fields
     private var mBtAdapter: BluetoothAdapter? = null
     private var mPairedDevicesArrayAdapter: ArrayAdapter<String>? = null
     private var mNewDevicesArrayAdapter: ArrayAdapter<String>? = null
-
-    // The on-click listener for all devices in the ListViews
-    private val mDeviceClickListener = AdapterView.OnItemClickListener { av, v, arg2, arg3 ->
-        // Cancel discovery because it's costly and we're about to connect
-        mBtAdapter!!.cancelDiscovery()
-
-        // Get the device MAC address, which is the last 17 chars in the View
-        val info = (v as TextView).text.toString()
-        val address = info.substring(info.length - 17)
-
-        // Create the result Intent and include the MAC address
-        val intent = Intent()
-        intent.putExtra(EXTRA_DEVICE_ADDRESS, address)
-
-        // Set result and finish this Activity
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
-
-    // The BroadcastReceiver that listens for discovered devices and
-    // changes the title when discovery is finished
-    private val mReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-
-            // When discovery finds a device
-            if (BluetoothDevice.ACTION_FOUND == action) {
-                // Get the BluetoothDevice object from the Intent
-                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-
-                // If it's already paired, skip it, because it's been listed already
-                if (device.bondState != BluetoothDevice.BOND_BONDED) {
-                    mNewDevicesArrayAdapter!!.add(device.name + "\n" + device.address)
-                }
-                // When discovery is finished, change the Activity title
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED == action) {
-                setProgressBarIndeterminateVisibility(false)
-                setTitle(R.string.select_device)
-                if (mNewDevicesArrayAdapter!!.count == 0) {
-                    val noDevices = resources.getText(R.string.none_found).toString()
-                    mNewDevicesArrayAdapter!!.add(noDevices)
-                }
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +39,7 @@ class DeviceListActivity : Activity() {
         setContentView(R.layout.device_list)
 
         // Set result CANCELED incase the user backs out
-        setResult(Activity.RESULT_CANCELED)
+        setResult(RESULT_CANCELED)
 
         // Initialize the button to perform device discovery
         val scanButton = findViewById<Button>(R.id.button_scan)
@@ -161,9 +121,50 @@ class DeviceListActivity : Activity() {
         mBtAdapter!!.startDiscovery()
     }
 
-    companion object {
-        // Return Intent extra
-        var EXTRA_DEVICE_ADDRESS = "device_address"
+    // The on-click listener for all devices in the ListViews
+    private val mDeviceClickListener = AdapterView.OnItemClickListener { av, v, arg2, arg3 ->
+        // Cancel discovery because it's costly and we're about to connect
+        mBtAdapter!!.cancelDiscovery()
+
+        // Get the device MAC address, which is the last 17 chars in the View
+        val info = (v as TextView).text.toString()
+        val address = info.substring(info.length - 17)
+
+        // Create the result Intent and include the MAC address
+        val intent = Intent()
+        intent.putExtra(EXTRA_DEVICE_ADDRESS, address)
+
+        // Set result and finish this Activity
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
+
+    // The BroadcastReceiver that listens for discovered devices and
+    // changes the title when discovery is finished
+    private val mReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+
+            // When discovery finds a device
+            if (BluetoothDevice.ACTION_FOUND == action) {
+                // Get the BluetoothDevice object from the Intent
+                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+
+                // If it's already paired, skip it, because it's been listed already
+                if (device.bondState != BluetoothDevice.BOND_BONDED) {
+                    mNewDevicesArrayAdapter!!.add(device.name + "\n" + device.address)
+                }
+                // When discovery is finished, change the Activity title
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED == action) {
+                setProgressBarIndeterminateVisibility(false)
+                setTitle(R.string.select_device)
+                if (mNewDevicesArrayAdapter!!.count == 0) {
+                    val noDevices = resources.getText(R.string.none_found).toString()
+                    mNewDevicesArrayAdapter!!.add(noDevices)
+                }
+            }
+        }
+    }
+
 }
 
