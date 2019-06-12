@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AndroidKotlinBluetooth</string>
-
     <string name="openbt">Open Bluetooth</string>
     <string name="makeVisible">Make Bluetooth Visible</string>
     <string name="findDevices">Find Devices</string>
 
-    <!--  BluetoothChatActivity -->
+    <!--  Bluetooth Chat Activity -->
     <string name="send">Send</string>
     <string name="not_connected">You are not connected to a device</string>
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
@@ -13,7 +13,7 @@
     <string name="title_connected_to">connected: </string>
     <string name="title_not_connected">not connected</string>
 
-    <!--  DeviceListActivity -->
+    <!--  Device List Activity -->
     <string name="scanning">scanning for devices...</string>
     <string name="select_device">select a device to connect</string>
     <string name="none_paired">No devices have been paired</string>
@@ -26,4 +26,6 @@
     <string name="connect">Connect</string>
     <string name="discoverable">Discover</string>
 
+    <!-- Chat -->
+    <string name="chat">Hello</string>
 </resources>
