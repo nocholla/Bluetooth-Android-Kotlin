@@ -133,7 +133,7 @@ class DeviceListActivity : Activity() {
         intent.putExtra(EXTRA_DEVICE_ADDRESS, address)
 
         // Set result and finish this Activity
-        setResult(Activity.RESULT_OK, intent)
+        setResult(RESULT_OK, intent)
         finish()
     }
 
