@@ -20,25 +20,37 @@ import java.util.*
  * thread for performing data transmissions when connected.
  */
 
-class BluetoothChatService
 /**
  * Constructor. Prepares a new BluetoothChatActivity session.
  *
  * @param context The UI Activity Context
  * @param handler A Handler to send messages back to the UI Activity
  */
-    (context: Context, private val mHandler: Handler) {
+
+class BluetoothChatService (context: Context, private val mHandler: Handler) {
+
+    // Creates a single instance of the Object. Similar to 'Static'
+    companion object {
+        // Name for the SDP record when creating server socket
+        private val NAME = "BluetoothChatActivity"
+
+        // Unique UUID for this application
+        private val MY_UUID = UUID.fromString("fa98c1d1-afac-22de-9a49-0900200c9a77")
+
+        // Constants that indicate the current connection state
+        const val STATE_NONE = 0       // we're doing nothing
+        const val STATE_LISTEN = 1     // now listening for incoming connections
+        const val STATE_CONNECTING = 2 // now initiating an outgoing connection
+        const val STATE_CONNECTED = 3  // now connected to a remote device
+    }
 
     // Member fields
-    private val mAdapter: BluetoothAdapter
+    private val mAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     private var mAcceptThread: AcceptThread? = null
     private var mConnectThread: ConnectThread? = null
     private var mConnectedThread: ConnectedThread? = null
     private var mState: Int = 0
 
-    /**
-     * Return the current connection state.
-     */
     /**
      * Set the current state of the chat connection
      *
@@ -53,9 +65,12 @@ class BluetoothChatService
         }
 
     init {
-        mAdapter = BluetoothAdapter.getDefaultAdapter()
         mState = STATE_NONE
     }
+
+    /**
+     * Return the current connection state.
+     */
 
     /**
      * Start the chat service. Specifically start AcceptThread to begin a
@@ -411,18 +426,4 @@ class BluetoothChatService
         }
     }
 
-    companion object {
-
-        // Name for the SDP record when creating server socket
-        private val NAME = "BluetoothChatActivity"
-
-        // Unique UUID for this application
-        private val MY_UUID = UUID.fromString("fa98c1d1-afac-22de-9a49-0900200c9a77")
-
-        // Constants that indicate the current connection state
-        val STATE_NONE = 0       // we're doing nothing
-        val STATE_LISTEN = 1     // now listening for incoming connections
-        val STATE_CONNECTING = 2 // now initiating an outgoing connection
-        val STATE_CONNECTED = 3  // now connected to a remote device
-    }
 }
