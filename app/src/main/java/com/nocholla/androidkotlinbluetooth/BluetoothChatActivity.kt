@@ -22,11 +22,31 @@ import java.util.ArrayList
 
 
 class BluetoothChatActivity : Activity() {
+
+    // Creates a single instance of the Object. Similar to 'Static'
+    companion object {
+        // Message types sent from the BluetoothChatService Handler
+        const val MESSAGE_STATE_CHANGE = 1
+        const val MESSAGE_READ = 2
+        const val MESSAGE_WRITE = 3
+        const val MESSAGE_DEVICE_NAME = 4
+        const val MESSAGE_TOAST = 5
+
+        // Key names received from the BluetoothChatService Handler
+        const val DEVICE_NAME = "device_name"
+        const val TOAST = "toast"
+
+        // Intent request codes
+        private const val REQUEST_CONNECT_DEVICE = 1
+        private const val REQUEST_ENABLE_BT = 2
+    }
+
     private var mOutEditText: EditText? = null
     private var mSendButton: Button? = null
 
     // Name of the connected device
     private val mConnectedDeviceName: String? = null
+
     // String buffer for outgoing messages
     private var mOutStringBuffer: StringBuffer? = null
 
@@ -43,54 +63,6 @@ class BluetoothChatActivity : Activity() {
     var counter = 0
 
     private val messageList = ArrayList<Message>()
-
-    // The action listener for the EditText widget, to listen for the return key
-    private val mWriteListener = TextView.OnEditorActionListener { view, actionId, event ->
-        // If the action is a key-up event on the return key, send the message
-        if (actionId == EditorInfo.IME_NULL && event.action == KeyEvent.ACTION_UP) {
-            val message = view.text.toString()
-            sendMessage(message)
-        }
-        true
-    }
-
-    // The Handler that gets information back from the BluetoothChatService
-    //    private final Handler mHandler = new Handler() {
-    //        public void handleMessage(Message msg) {
-    //            switch (msg.what) {
-    //                case MESSAGE_WRITE:
-    //                    byte[] writeBuf = (byte[]) msg.obj;
-    //                    // construct a string from the buffer
-    //                    String writeMessage = new String(writeBuf);
-    //                    mAdapter.notifyDataSetChanged();
-    //                    messageList.add(new Message(counter++, writeMessage, "Me"));
-    //                    break;
-    //                case MESSAGE_READ:
-    //                    byte[] readBuf = (byte[]) msg.obj;
-    //                    // construct a string from the valid bytes in the buffer
-    //                    String readMessage = new String(readBuf, 0, msg.arg1);
-    //                    mAdapter.notifyDataSetChanged();
-    //                    messageList.add(new Message(counter++, readMessage, mConnectedDeviceName));
-    //                    break;
-    //                case MESSAGE_DEVICE_NAME:
-    //                    // save the connected device's name
-    //                    mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
-    //                    Toast.makeText(getApplicationContext(), "Connected to "
-    //                            + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-    //                    break;
-    //                case MESSAGE_TOAST:
-    //                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
-    //                            Toast.LENGTH_SHORT).show();
-    //                    break;
-    //            }
-    //        }
-    //    };
-
-    private val mHandler = object : Handler() {
-        fun handleMessage(msg: Message) {
-
-        }
-    }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -176,11 +148,11 @@ class BluetoothChatActivity : Activity() {
     }
 
     private fun setupChat() {
-        mOutEditText = findViewById(R.id.edit_text_out) as EditText
+        mOutEditText = findViewById(R.id.edit_text_out)
         mOutEditText!!.setOnEditorActionListener(mWriteListener)
-        mSendButton = findViewById(R.id.button_send) as Button
+        mSendButton = findViewById(R.id.button_send)
         mSendButton!!.setOnClickListener {
-            val view = findViewById(R.id.edit_text_out) as TextView
+            val view = findViewById<TextView>(R.id.edit_text_out)
             val message = view.text.toString()
             sendMessage(message)
         }
@@ -200,7 +172,7 @@ class BluetoothChatActivity : Activity() {
         }
 
         // Check that there's actually something to send
-        if (message.length > 0) {
+        if (message.isNotEmpty()) {
 
             // Get the message bytes and tell the BluetoothChatService to write
             val send = message.toByteArray()
@@ -209,6 +181,22 @@ class BluetoothChatActivity : Activity() {
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer!!.setLength(0)
             mOutEditText!!.setText(mOutStringBuffer)
+        }
+    }
+
+    // The action listener for the EditText widget, to listen for the return key
+    private val mWriteListener = TextView.OnEditorActionListener { view, actionId, event ->
+        // If the action is a key-up event on the return key, send the message
+        if (actionId == EditorInfo.IME_NULL && event.action == KeyEvent.ACTION_UP) {
+            val message = view.text.toString()
+            sendMessage(message)
+        }
+        true
+    }
+
+    private val mHandler = object : Handler() {
+        fun handleMessage(msg: Message) {
+
         }
     }
 
@@ -237,24 +225,6 @@ class BluetoothChatActivity : Activity() {
                     finish()
                 }
         }
-    }
-
-    companion object {
-        // Message types sent from the BluetoothChatService Handler
-        val MESSAGE_STATE_CHANGE = 1
-        val MESSAGE_READ = 2
-        val MESSAGE_WRITE = 3
-        val MESSAGE_DEVICE_NAME = 4
-        val MESSAGE_TOAST = 5
-
-
-        // Key names received from the BluetoothChatService Handler
-        val DEVICE_NAME = "device_name"
-        val TOAST = "toast"
-
-        // Intent request codes
-        private val REQUEST_CONNECT_DEVICE = 1
-        private val REQUEST_ENABLE_BT = 2
     }
 
 }
